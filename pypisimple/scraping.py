@@ -33,6 +33,15 @@ def average_name_length(packages_array):
     return result / len(packages_array)
 
 
+def package_name_contains(packages_array, substr):
+    print(f"Check how many packages contain the string '{substr}'")
+    result = 0
+    for name in packages_array:
+        if substr in name:
+            result += 1
+    return result
+
+
 packages = get_packages_array(INDEX_URL)
 
 print(f"There are {len(packages)} packages listed on PyPI")
@@ -41,5 +50,11 @@ avg_length = average_name_length(packages)
 
 print(f"The average package name length is {avg_length:.2f} characters")
 
-# def count_packages_python_in_name():
-#     print("get average package name length")
+strings = ["python", "py", "test"]
+for string in strings:
+    contains_string = package_name_contains(packages, string)
+    percentage = contains_string * 100 / len(packages)
+    print(
+        f"There are {contains_string} packages ({percentage:.2f}%) "
+        f"that contain the string '{string}'"
+    )
