@@ -4,6 +4,7 @@ from functools import reduce
 from html.parser import HTMLParser
 import requests
 
+# Issue with the cache for /simple/ not being purged often enough: https://github.com/pypa/warehouse/issues/7324
 INDEX_URL = "https://pypi.org/simple/"
 
 
