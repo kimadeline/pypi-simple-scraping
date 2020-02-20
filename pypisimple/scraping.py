@@ -43,13 +43,12 @@ def package_name_contains(packages_array, substr):
     return result
 
 
+if __name__ == "__main__":
 packages = get_packages_array(INDEX_URL)
-
 print(f"There are {len(packages)} packages listed on PyPI")
 
 avg_length = average_name_length(packages)
-
-print(f"The average package name length is {avg_length:.2f} characters")
+    print(f"The average package name length is {avg_length:.2f} characters.")
 
 strings = ["python", "py", "test"]
 for string in strings:
@@ -57,5 +56,5 @@ for string in strings:
     percentage = contains_string * 100 / len(packages)
     print(
         f"There are {contains_string} packages ({percentage:.2f}%) "
-        f"that contain the string '{string}'"
+            f"that contain the string '{string}'."
     )
