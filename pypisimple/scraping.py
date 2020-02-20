@@ -28,6 +28,13 @@ def get_packages_array(url):
     return parser.packages
 
 
+def longest_name(packages_array):
+    print("Get longest package name")
+    lengths = [len(p) for p in packages_array]
+    index = lengths.index(max(lengths))
+    return packages_array[index]
+
+
 def average_name_length(packages_array):
     print("Get average package name length")
     result = reduce(lambda acc, name: acc + len(name), packages_array, 0)
@@ -46,6 +53,11 @@ def package_name_contains(packages_array, substr):
 if __name__ == "__main__":
 packages = get_packages_array(INDEX_URL)
 print(f"There are {len(packages)} packages listed on PyPI")
+
+    longest_name = longest_name(packages)
+    print(
+        f"The longest package name is {longest_name} ({len(longest_name)}) characters."
+    )
 
 avg_length = average_name_length(packages)
     print(f"The average package name length is {avg_length:.2f} characters.")
