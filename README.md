@@ -1,9 +1,8 @@
-Exercise in scraping of PyPI's simple API:
-1. Parse it using a Python script and extract some fun facts:
+Exercise in scraping of PyPI's simple API. 
+Parse it using a Python script and extract some fun facts:
+   - Longest package name
    - Average package name length
    - Number of packages with `py`, `python` and `test` in their name
-   - ???
-2. Once I'm comfortable, fit everything in a Jupyter notebook because why not
 
 # Setup
 
