@@ -2,10 +2,14 @@
 
 from functools import reduce
 from html.parser import HTMLParser
+
+import argparse
+import json
 import requests
 
 # Issue with the cache for /simple/ not being purged often enough: https://github.com/pypa/warehouse/issues/7324
 INDEX_URL = "https://pypi.org/simple/"
+SAVE_FILE = "pypi.json"
 
 
 class SimplePyPIHTMLParser(HTMLParser):
@@ -19,13 +23,23 @@ class SimplePyPIHTMLParser(HTMLParser):
             self.packages.append(data)
 
 
-def get_packages_array(url):
-    r = requests.get(url)
+def get_packages_array(offline):
+    packages = []
+    if offline:
+        with open(SAVE_FILE, "r") as file:
+            packages = json.load(file)
+    else:
+        r = requests.get(INDEX_URL)
     parser = SimplePyPIHTMLParser()
     parser.feed(r.text)
     parser.close()
+        packages = parser.packages
 
-    return parser.packages
+        # Save into SAVE_FILE
+        with open(SAVE_FILE, "w+") as file:
+            json.dump(packages, file)
+
+    return packages
 
 
 def longest_name(packages_array):
@@ -51,7 +65,22 @@ def package_name_contains(packages_array, substr):
 
 
 if __name__ == "__main__":
-packages = get_packages_array(INDEX_URL)
+    parser = argparse.ArgumentParser(
+        description="Compute some stats from scraping PyPI's simple API."
+    )
+    parser.add_argument(
+        "-o",
+        "--offline",
+        action="store_true",
+        help="Use saved data to compute the stats.",
+    )
+    args = parser.parse_args()
+    offline = args.offline
+
+    if offline:
+        print("🔌 Offline parsing")
+
+    packages = get_packages_array(offline)
 print(f"There are {len(packages)} packages listed on PyPI")
 
     longest_name = longest_name(packages)
