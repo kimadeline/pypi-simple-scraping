@@ -30,9 +30,9 @@ def get_packages_array(offline):
             packages = json.load(file)
     else:
         r = requests.get(INDEX_URL)
-    parser = SimplePyPIHTMLParser()
-    parser.feed(r.text)
-    parser.close()
+        parser = SimplePyPIHTMLParser()
+        parser.feed(r.text)
+        parser.close()
         packages = parser.packages
 
         # Save into SAVE_FILE
@@ -81,21 +81,21 @@ if __name__ == "__main__":
         print("🔌 Offline parsing")
 
     packages = get_packages_array(offline)
-print(f"There are {len(packages)} packages listed on PyPI")
+    print(f"There are {len(packages)} packages listed on PyPI")
 
     longest_name = longest_name(packages)
     print(
         f"The longest package name is {longest_name} ({len(longest_name)} characters)."
     )
 
-avg_length = average_name_length(packages)
+    avg_length = average_name_length(packages)
     print(f"The average package name length is {avg_length:.2f} characters.")
 
-strings = ["python", "py", "test"]
-for string in strings:
-    contains_string = package_name_contains(packages, string)
-    percentage = contains_string * 100 / len(packages)
-    print(
-        f"There are {contains_string} packages ({percentage:.2f}%) "
+    strings = ["python", "py", "test"]
+    for string in strings:
+        contains_string = package_name_contains(packages, string)
+        percentage = contains_string * 100 / len(packages)
+        print(
+            f"There are {contains_string} packages ({percentage:.2f}%) "
             f"that contain the string '{string}'."
-    )
+        )
