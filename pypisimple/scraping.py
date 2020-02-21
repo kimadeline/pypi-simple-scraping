@@ -18,7 +18,7 @@ class SimplePyPIHTMLParser(HTMLParser):
         self.packages = []
 
     def handle_data(self, data):
-        # if it isn't a newline character
+        # Save data if it isn't a newline character.
         if len(data.strip()):
             self.packages.append(data)
 
