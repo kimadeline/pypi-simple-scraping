@@ -56,7 +56,7 @@ print(f"There are {len(packages)} packages listed on PyPI")
 
     longest_name = longest_name(packages)
     print(
-        f"The longest package name is {longest_name} ({len(longest_name)}) characters."
+        f"The longest package name is {longest_name} ({len(longest_name)} characters)."
     )
 
 avg_length = average_name_length(packages)
